@@ -7,15 +7,14 @@ params = yaml.load(open("config/params.yml", "r"), Loader=yaml.SafeLoader)
 features = yaml.load(open("config/features.yml", "r"), Loader=yaml.SafeLoader)
 samples = pd.read_table("config/samples.tsv", comment="#", dtype="str")
 
-SAMPLES = samples[["sample_id"]].values.flatten()
+SAMPLE_LIBRARY = samples[["sample_id", "library_id"]].values.tolist()
 
 
 # Import subworkflows
 include: "rules/folders.smk"
 include: "rules/clean.smk"
-include: "rules/raw.smk"
-include: "rules/map.smk"
-include: "rules/call.smk"
+include: "rules/helpers/__main__.smk"
+include: "rules/reads/__main__.smk"
 
 
 rule all:
@@ -23,4 +22,4 @@ rule all:
     Execute the entire pipeline
     """
     input:
-        CALL + "all.vcf",
+        rules.reads.input,

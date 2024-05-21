@@ -1,3 +1,4 @@
-sample_id	path
-A	results/raw/samples/A.fastq
-B	results/raw/samples/B.fastq
+sample_id	library_id	forward_filename	reverse_filename	forward_adaptor	reverse_adaptor
+human	lib1	resources/reads/human_1.fq.gz	resources/reads/human_2.fq.gz	AGATCGGAAGAGCACACGTCTGAACTCCAGTCA	AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+mouse	lib1	resources/reads/mouse_1.fq.gz	resources/reads/mouse_2.fq.gz	AGATCGGAAGAGCACACGTCTGAACTCCAGTCA	AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+zebrafish	lib1	resources/reads/zebrafish_1.fq.gz	resources/reads/zebrafish_2.fq.gz	AGATCGGAAGAGCACACGTCTGAACTCCAGTCA	AGATCGGAAGAGCACACGTCTGAACTCCAGTCA

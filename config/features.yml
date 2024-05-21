@@ -1,5 +1,6 @@
 # Configuration file with information about the reference
 ---
-urls:
-    tarball: >
-        https://bitbucket.org/snakemake/snakemake/downloads/snakemake-tutorial-data.tar.gz
+reference:
+    human: resources/reference/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz
+    mouse: resources/reference/Mus_musculus.GRCm39.dna.chromosome.MT.fa.gz
+    zebrafish: resources/reference/Danio_rerio.GRCz11.dna.chromosome.MT.fa.gz
