@@ -14,7 +14,8 @@ rule sourmash__sketch__reads__:
         """
         sourmash sketch dna \
             --param-string '{params.param_string}' \
-            --merge {output.sketch} \
+            --output {output.sketch} \
+            --merge \
             {input.forward_} \
             {input.reverse_} \
         2> {log}
