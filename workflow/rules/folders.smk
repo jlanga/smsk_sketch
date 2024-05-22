@@ -24,3 +24,5 @@ SK_REFERENCE = SKMER / "reference"
 
 SYLPH = RESULTS / "sylph"
 SYLPH_SKETCH = SYLPH / "sketch"
+SYLPH_QUERY = SYLPH / "query"
+SYLPH_PROFILE = SYLPH / "profile"
