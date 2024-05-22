@@ -7,3 +7,10 @@ preprocess:
     ksize: 32
     cutoff: 3
     max_memory_usage: 4e9
+
+sourmash:
+  sketch:
+    reads:
+      param_string: "scaled=1000,k=51"
+    genomes:
+      param_string: "scaled=1000,k=51"

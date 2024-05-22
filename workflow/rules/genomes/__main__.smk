@@ -2,6 +2,6 @@ include: "__functions__.smk"
 include: "link.smk"
 
 
-rule reference:
+rule genomes:
     input:
-        rules.reference__link.input,
+        rules.genomes__link.input,

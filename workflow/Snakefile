@@ -9,7 +9,7 @@ samples = pd.read_table("config/samples.tsv", comment="#", dtype="str")
 
 SAMPLE_LIBRARY = samples[["sample_id", "library_id"]].values.tolist()
 
-REFERENCES = list(features["reference"].keys())
+GENOME_LIST = list(features["genomes"].keys())
 
 
 # Import subworkflows
@@ -17,8 +17,9 @@ include: "rules/folders.smk"
 include: "rules/clean.smk"
 include: "rules/helpers/__main__.smk"
 include: "rules/reads/__main__.smk"
-include: "rules/reference/__main__.smk"
+include: "rules/genomes/__main__.smk"
 include: "rules/preprocess/__main__.smk"
+include: "rules/sourmash/__main__.smk"
 
 
 rule all:
@@ -26,6 +27,7 @@ rule all:
     Execute the entire pipeline
     """
     input:
-        rules.reads.input,
-        rules.reference.input,
-        rules.preprocess.input,
+        # rules.reads.input,
+        # rules.genomes.input,
+        # rules.preprocess.input,
+        rules.sourmash.input,

@@ -1,6 +1,6 @@
 # Configuration file with information about the reference
 ---
-reference:
-    human: resources/reference/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz
-    mouse: resources/reference/Mus_musculus.GRCm39.dna.chromosome.MT.fa.gz
-    zebrafish: resources/reference/Danio_rerio.GRCz11.dna.chromosome.MT.fa.gz
+genomes:
+    human: resources/genomes/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz
+    mouse: resources/genomes/Mus_musculus.GRCm39.dna.chromosome.MT.fa.gz
+    zebrafish: resources/genomes/Danio_rerio.GRCz11.dna.chromosome.MT.fa.gz

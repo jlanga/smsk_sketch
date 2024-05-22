@@ -4,10 +4,10 @@ set -euo pipefail
 
 mkdir \
     --parents \
-    resources/references \
+    resources/genomes \
     resources/reads
 
-pushd resources/references
+pushd resources/genomes
 
 wget \
     --continue \
@@ -21,7 +21,7 @@ wgsim \
     -N 10000 \
     -1 150 \
     -2 150 \
-    resources/references/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz \
+    resources/genomes/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz \
     >(seqtk seq -F I | gzip -9 > resources/reads/human_1.fq.gz) \
     >(seqtk seq -F I | gzip -9 > resources/reads/human_2.fq.gz)
 
@@ -29,7 +29,7 @@ wgsim \
     -N 10000 \
     -1 150 \
     -2 150 \
-    resources/references/Mus_musculus.GRCm39.dna.chromosome.MT.fa.gz \
+    resources/genomes/Mus_musculus.GRCm39.dna.chromosome.MT.fa.gz \
     >(seqtk seq -F I | gzip -9 > resources/reads/mouse_1.fq.gz) \
     >(seqtk seq -F I | gzip -9 > resources/reads/mouse_2.fq.gz)
 
@@ -37,6 +37,6 @@ wgsim \
     -N 10000 \
     -1 150 \
     -2 150 \
-    resources/references/Danio_rerio.GRCz11.dna.chromosome.MT.fa.gz \
+    resources/genomes/Danio_rerio.GRCz11.dna.chromosome.MT.fa.gz \
     >(seqtk seq -F I | gzip -9 > resources/reads/zebrafish_1.fq.gz) \
     >(seqtk seq -F I | gzip -9 > resources/reads/zebrafish_2.fq.gz)

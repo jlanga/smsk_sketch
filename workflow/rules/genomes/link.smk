@@ -1,11 +1,11 @@
-rule reference__link__:
+rule genomes__link__:
     """Make a link to the original forward file, with a prettier name than default"""
     input:
-        get_reference_path,
+        get_genome_path,
     output:
-        REFERENCE / "{reference}.fa.gz",
+        GENOMES / "{genome}.fa.gz",
     log:
-        REFERENCE / "{reference}.log",
+        GENOMES / "{genome}.log",
     conda:
         "__environment__.yml"
     shell:
@@ -14,11 +14,11 @@ rule reference__link__:
         """
 
 
-rule reference__link:
+rule genomes__link:
     """Link all reads in the samples.tsv"""
     input:
-        [REFERENCE / f"{reference}.fa.gz" for reference in REFERENCES],
+        [GENOMES / f"{genome}.fa.gz" for genome in GENOME_LIST],
 
 
 localrules:
-    reference__link__,
+    genomes__link__,
