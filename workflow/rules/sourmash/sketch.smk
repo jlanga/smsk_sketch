@@ -53,3 +53,9 @@ rule sourmash__sketch__genomes__:
 rule sourmash__sketch__genomes:
     input:
         [SOUR_GENOMES / f"{genome}.sig" for genome in GENOME_LIST],
+
+
+rule sourmash__sketch:
+    input:
+        rules.sourmash__sketch__genomes.input,
+        rules.sourmash__sketch__reads.input,

@@ -14,3 +14,5 @@ sourmash:
       param_string: "scaled=1000,k=51"
     genomes:
       param_string: "scaled=1000,k=51"
+  index:
+    ksize: 51
