@@ -20,6 +20,8 @@ include: "rules/reads/__main__.smk"
 include: "rules/genomes/__main__.smk"
 include: "rules/preprocess/__main__.smk"
 include: "rules/sourmash/__main__.smk"
+# include: "rules/skmer/__main__.smk"
+include: "rules/sylph/__main__.smk"
 
 
 rule all:
@@ -31,3 +33,5 @@ rule all:
         # rules.genomes.input,
         # rules.preprocess.input,
         rules.sourmash.input,
+        # rules.skmer.input,
+        rules.sylph.input,

@@ -18,3 +18,11 @@ SOUR_INDEX = SOURMASH / "index"
 SOUR_SEARCH = SOURMASH / "search"
 SOUR_GATHER = SOURMASH / "gather"
 SOUR_COMPARE = SOURMASH / "compare"
+
+SKMER = RESULTS / "skmer"
+SK_REFERENCE = SKMER / "reference"
+
+SYLPH = RESULTS / "sylph"
+SYLPH_SKETCH = SYLPH / "sketch"
+SYLPH_QUERY = SYLPH / "query"
+SYLPH_PROFILE = SYLPH / "profile"
