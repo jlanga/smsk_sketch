@@ -1,3 +1,9 @@
 # Configuration file with the execution parameters
 ---
-max_threads: 12
+preprocess:
+  fastp:
+    length_required: 75
+  khmer:
+    ksize: 32
+    cutoff: 3
+    max_memory_usage: 4e9
