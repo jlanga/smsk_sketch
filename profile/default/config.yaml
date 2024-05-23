@@ -7,9 +7,12 @@ default-resources:
     disk_mb: 1G
 
 set-threads:
-    map_bwa: 24
+    preprocess__fastp__: 24
 
 set-resources:
-    map_bwa:
-        time: 6h
+    preprocess__fastp__:
+        time: 4h
+        mem_mb: 8G
+    preprocess__khmer__filter_low_abund__:
+        time: 1d
         mem_mb: 8G
