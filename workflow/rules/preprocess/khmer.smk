@@ -11,8 +11,8 @@ rule preprocess__khmer__interleave__:
     shell:
         """
         ( interleave-reads.py \
-            {input.forward_} \
-            {input.reverse_} \
+            <(gzip --decompress --stdout {input.forward_}) \
+            <(gzip --decompress --stdout {input.reverse_}) \
         | pigz \
             --processes {threads} \
             --stdout \
