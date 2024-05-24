@@ -13,7 +13,9 @@ rule preprocess__khmer__interleave__:
         ( interleave-reads.py \
             {input.forward_} \
             {input.reverse_} \
-        | gzip --stdout \
+        | pigz \
+            --processes {threads} \
+            --stdout \
         > {output.interleaved} \
         ) 2> {log}
         """
@@ -39,7 +41,7 @@ rule preprocess__khmer__trim_low_abund__:
             --ksize {params.ksize} \
             --cutoff {params.cutoff} \
             --max-memory-usage {params.max_memory_usage} \
-            --output {output.filtered} \
+            --output >(pigz --processes {threads} {output.filtered}) \
             {input.interleaved} \
         2> {log} 1>&2
         """
@@ -57,7 +59,7 @@ rule preprocess__khmer__extract_paired_reads__:
     shell:
         """
         extract-paired-reads.py \
-            --output-paired {output.extracted} \
+            --output-paired >(pigz --processes {threads} {output.extracted}) \
             --output-single /dev/null \
             {input.filtered} \
         2> {log} 1>&2
@@ -77,9 +79,8 @@ rule preprocess__khmer__split_paired_reads__:
     shell:
         """
         split-paired-reads.py \
-            --gzip \
-            --output-first {output.forward_} \
-            --output-second {output.reverse_} \
+            --output-first >(pigz --processes {threads} > {output.forward_}) \
+            --output-second >(pigz --processes {threads} > {output.reverse_}) \
             {input.extracted} \
         2> {log} 1>&2
         """

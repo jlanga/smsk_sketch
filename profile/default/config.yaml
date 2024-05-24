@@ -8,6 +8,10 @@ default-resources:
 
 set-threads:
     preprocess__fastp__: 24
+    preprocess__khmer__interleave__: 8
+    preprocess__khmer__trim_low_abund__: 8
+    preprocess__khmer__extract_paired_reads__: 8
+    preprocess__khmer__split_paired_reads__: 8
 
 set-resources:
     preprocess__fastp__:
