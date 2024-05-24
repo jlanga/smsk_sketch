@@ -8,15 +8,15 @@ default-resources:
 
 set-threads:
     preprocess__fastp__: 24
-    preprocess__khmer__interleave__: 8
+    preprocess__khmer__interleave__: 2
     preprocess__khmer__trim_low_abund__: 8
-    preprocess__khmer__extract_paired_reads__: 8
-    preprocess__khmer__split_paired_reads__: 8
 
 set-resources:
     preprocess__fastp__:
         time: 4h
         mem_mb: 8G
+    preprocess__khmer__interleave__:
+        time: 6h
     preprocess__khmer__filter_low_abund__:
         time: 1d
         mem_mb: 8G

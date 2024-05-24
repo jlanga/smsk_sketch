@@ -3,7 +3,7 @@ rule preprocess__khmer__interleave__:
         forward_=FASTP / "{sample_id}.{library_id}_1.fq.gz",
         reverse_=FASTP / "{sample_id}.{library_id}_2.fq.gz",
     output:
-        interleaved=KHMER / "{sample_id}.{library_id}.interleaved.fq.gz",
+        interleaved=temp(KHMER / "{sample_id}.{library_id}.interleaved.fq.gz"),
     log:
         KHMER / "{sample_id}.{library_id}.interleaved.log",
     conda:
@@ -16,6 +16,7 @@ rule preprocess__khmer__interleave__:
         | pigz \
             --processes {threads} \
             --stdout \
+            --fast \
         > {output.interleaved} \
         ) 2> {log}
         """
@@ -25,9 +26,10 @@ rule preprocess__khmer__trim_low_abund__:
     input:
         interleaved=KHMER / "{sample_id}.{library_id}.interleaved.fq.gz",
     output:
-        filtered=KHMER / "{sample_id}.{library_id}.filtered.fq.gz",
+        forward_=KHMER / "{sample_id}.{library_id}_1.fq.gz",
+        reverse_=KHMER / "{sample_id}.{library_id}_2.fq.gz",
     log:
-        KHMER / "{sample_id}.{library_id}.filtered.log",
+        KHMER / "{sample_id}.{library_id}.trim_low_abund.log",
     conda:
         "__environment__.yml"
     params:
@@ -37,52 +39,21 @@ rule preprocess__khmer__trim_low_abund__:
         temp_dir=lambda w: KHMER / f"{w.sample_id}.{w.library_id}",
     shell:
         """
-        trim-low-abund.py \
+        ( trim-low-abund.py \
             --ksize {params.ksize} \
             --cutoff {params.cutoff} \
             --max-memory-usage {params.max_memory_usage} \
-            --output >(pigz --processes {threads} {output.filtered}) \
+            --output - \
             {input.interleaved} \
-        2> {log} 1>&2
-        """
-
-
-rule preprocess__khmer__extract_paired_reads__:
-    input:
-        filtered=KHMER / "{sample_id}.{library_id}.filtered.fq.gz",
-    output:
-        extracted=KHMER / "{sample_id}.{library_id}.extracted.fq.gz",
-    log:
-        KHMER / "{sample_id}.{library_id}.extracted.log",
-    conda:
-        "__environment__.yml"
-    shell:
-        """
-        extract-paired-reads.py \
-            --output-paired >(pigz --processes {threads} {output.extracted}) \
+        | extract-paired-reads.py \
+            --output-paired - \
             --output-single /dev/null \
-            {input.filtered} \
-        2> {log} 1>&2
-        """
-
-
-rule preprocess__khmer__split_paired_reads__:
-    input:
-        extracted=KHMER / "{sample_id}.{library_id}.extracted.fq.gz",
-    output:
-        forward_=KHMER / "{sample_id}.{library_id}_1.fq.gz",
-        reverse_=KHMER / "{sample_id}.{library_id}_2.fq.gz",
-    log:
-        KHMER / "{sample_id}.{library_id}.split.log",
-    conda:
-        "__environment__.yml"
-    shell:
-        """
-        split-paired-reads.py \
+            - \
+        | split-paired-reads.py \
             --output-first >(pigz --processes {threads} > {output.forward_}) \
             --output-second >(pigz --processes {threads} > {output.reverse_}) \
-            {input.extracted} \
-        2> {log} 1>&2
+            - \
+        ) 2> {log}
         """
 
 
